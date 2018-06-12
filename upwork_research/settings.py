@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 ]
 LOCAL_APPS = [
     'loans_app',
-    'credit'
+    'credit',
+    'offer',
 ]
 
 INSTALLED_APPS += LOCAL_APPS
