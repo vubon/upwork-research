@@ -41,7 +41,9 @@
 #
 
 # rm 'db.sqlite3'
-git add .
-git commit -m"checking"
-git status
-git push origin master
+
+# python manage.py migrate
+
+readonly sourceFile="\vubon\personal\upwork_env\Scripts\activate"
+
+source ${sourceFile}

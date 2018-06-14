@@ -1,16 +1,21 @@
-import subprocess
+import requests
+title = "spiderman"
+payload = {'Title': 'spiderman'}
+url = 'https://jsonmock.hackerrank.com/api/movies/search/'
+a = requests.get(url, params=payload).json()
+return_data = []
+print(a)
+for i in range(a['total_pages']):
+    payload2 = {'Title': 'spiderman', 'page': i}
+    res = requests.get(url, params=payload2).json()
+    for j in res['data']:
+        if a['page'] == i:
+            return_data.append(j['Title'])
+        else:
+            return_data.append(j['Title'])
 
-template = 'python script.py {} {} {} {}'
+return_data.sort()
 
-args = [[1, 2, 3, 4], [5, 6, 7, 8]]
+print(len(return_data))
 
-# Run commands in parallel
-processes = []
 
-for arg in args:
-    command = template.format(*[str(a) for a in arg])
-    process = subprocess.Popen(command, shell=True)
-    processes.append(process)
-
-# Collect statuses
-output = [p.wait() for p in processes]

@@ -38,3 +38,46 @@ class TestLoans(models.Model):
     choose = models.CharField(max_length=5, choices=STATUS)
     test_decimal = models.DecimalField(max_digits=14, decimal_places=4, null=True, blank=True)
     test2 = models.CharField(max_length=50)
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class BookManager(models.Manager):
+
+    def create_book(self, data):
+        num = self.filter(author=1).count()
+        self.create(
+            author_id=1,
+            name=data['name'],
+            book_counter=num + 1
+        )
+        message = {"message": "created"}
+        status = 201
+        return message, status
+
+    # def delete_method(self, pk):
+    #     self.filter(pk=pk).delete()
+    #     self.update()
+
+
+class Book(models.Model):
+    author = models.ForeignKey(Author)
+    name = models.CharField(max_length=100)
+    book_counter = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = BookManager()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['-id']
+
+
